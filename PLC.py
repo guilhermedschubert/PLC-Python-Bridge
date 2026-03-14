@@ -1,7 +1,7 @@
 from snap7.client import Client
 from TAGS import TAG, DataVerify
 
-class PLC():
+class s7legacy():
 
     # Inicialização da classe
 
@@ -75,6 +75,6 @@ class PLC():
 
         return self.plc.write_area_area(tag.area, tag.db, tag.start, tag.size)
 
-CLP = PLC('192.168.0.1',1,0,'CLP de Teste')
+CLP = s7legacy('192.168.0.1',1,0,'CLP de Teste')
 Tag = TAG('a',1,1)
 print(CLP.read(Tag))
