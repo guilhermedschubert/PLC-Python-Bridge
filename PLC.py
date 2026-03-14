@@ -1,5 +1,5 @@
 from snap7.client import Client
-from TAGS import TAG, DataVerify
+from TAGS import TAG, DataVerify, ParseTag
 
 class s7legacy():
 
@@ -72,9 +72,11 @@ class s7legacy():
         # Validação de clp iniciado
         if self.plc is None:
             raise RuntimeError("PLC não conectado! Execute connect() primeiro.")
+        
 
         return self.plc.write_area_area(tag.area, tag.db, tag.start, tag.size)
 
 CLP = s7legacy('192.168.0.1',1,0,'CLP de Teste')
-Tag = TAG('a',1,1)
+Tag = ParseTag('Tag_1', 'DB10.DBX0.3')
+print(Tag)
 print(CLP.read(Tag))

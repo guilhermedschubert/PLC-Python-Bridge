@@ -41,13 +41,13 @@ def DataVerify(tag, value) -> bool:
 
 @dataclass
 class Snap7Tag:
+    name: str
     data_type: str   # "bool", "byte", "int", "word", "dword", "real"
     area: Areas
     db: int
     start: int
     size: int
     bits: Optional[int] = None
-
     def to_dict(self) -> dict:
         return {
             "data_type": self.data_type,
@@ -88,7 +88,7 @@ _MEM_SUFFIX = {
 }
 
 
-def parse_tag(address: str) -> Snap7Tag:
+def ParseTag(name: str,address: str) -> Snap7Tag:
     """
     Interpreta um endereço no estilo TIA Portal e retorna um Snap7Tag.
 
@@ -137,6 +137,7 @@ def parse_tag(address: str) -> Snap7Tag:
                 raise ValueError(f"Tipo '{dtype}' não usa notação de bit.")
 
         return Snap7Tag(
+            name=name,
             data_type=dtype,
             area=Areas.DB,
             db=db_num,
@@ -175,6 +176,7 @@ def parse_tag(address: str) -> Snap7Tag:
             raise ValueError(f"Bit inválido: {bit_idx}. Deve ser 0–7.")
 
         return Snap7Tag(
+            name=name,
             data_type=dtype,
             area=area,
             db=0,
@@ -191,7 +193,7 @@ def parse_tag(address: str) -> Snap7Tag:
 
 class TAG():
     def __init__(self, name: str, data_type: str, start: int, size: int, area: Areas = Areas.DB, db: int = 0):
-        self.name           = name
+        
         self.data_type      = data_type
         self.area           = area
         self.db             = db
